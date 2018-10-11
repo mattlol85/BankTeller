@@ -4,7 +4,7 @@ import java.util.Scanner;
 /*
  * Name: Matthew Fitzgerald
  * BankAccounts v3.0
- * 
+ * GITHUB TEST
  */
 public class BankTeller {
 	public static void main(String a[]) throws IOException {
