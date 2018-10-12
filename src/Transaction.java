@@ -43,13 +43,17 @@ public class Transaction {
 	public double getTransactionAmount() {
 		return transactionAmount;
 	}
-	public void newAcctTrans(String transType) {
+	public boolean getTransactionSuccess() {
+		return sucess;
+	}
+	
+	public void newAcctTrans(String transType,boolean s) {
 		
 	}
-	public void depositTrans(String transType,Double reqAmount) {
+	public void depositTrans(String transType,Double reqAmount,boolean s) {
 		
 	}
-	public void withdrawalTrans(String transType,Double reqAmount) {
+	public void withdrawalTrans(String transType,Double reqAmount,boolean s) {
 		
 	}
 	public void balanceTrans(String transType) {

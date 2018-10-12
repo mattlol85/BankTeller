@@ -47,6 +47,9 @@ public class Account {
 	public void setAccountStatus(boolean s) {
 		accountStatus = s;
 	}
+	public void addTransaction(String tt, Double ta) {
+	//	transaction.add()
+	}
 
 	// Getters
 	public Depositor getDepositor() {

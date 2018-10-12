@@ -61,11 +61,14 @@ public class BankTeller {
 			case 'x':
 			case 'X':
 				deleteAcct(bankOfAmerica, outFile, kybd);
-
 				break;
 			case 'i':
 			case 'I':
 				accountInfo(bankOfAmerica, kybd);
+				break;
+			case 'c':
+			case 'C':
+				closeAccount(bankOfAmerica,kybd);
 			default:
 				outFile.println("|********************************************|");
 				outFile.println("Error: " + choice + " is an invalid selection -  try again");
@@ -84,6 +87,11 @@ public class BankTeller {
 		kybd.close();
 		System.out.println();
 		System.out.println("The program is terminating");
+	}
+
+	private static void closeAccount(Bank bankOfAmerica, Scanner kybd) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void balance(Bank bank, PrintWriter outFile, Scanner kybd) {
@@ -114,6 +122,7 @@ public class BankTeller {
 			outFile.printf("Current Balance: $%.2f\n", accounts.get(index).getBalance());
 			outFile.println("|********************************************|");
 			outFile.println("");
+			accounts.get(index).addTransaction("Balance Inquiry",0.0);
 			outFile.flush(); // flush the output buffer
 		}
 	}
