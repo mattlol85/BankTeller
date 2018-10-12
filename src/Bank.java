@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+
 public class Bank {
-	private Account[] accounts;
-	private int activeAccounts;
+	private ArrayList<Account> accounts;
 
 	// No-Arg
 	public Bank() {
@@ -8,27 +9,24 @@ public class Bank {
 	}
 
 	// Argument Constructor
-	public Bank(Account[] a, int b) {
+	public Bank(ArrayList<Account> a) {
 		accounts = a;
-		activeAccounts = b;
+
 	}
 
 	// Setters
-	public void setAccounts(Account[] a) {
+	public void setAccounts(ArrayList<Account> a) {
 		accounts = a;
 	}
 
-	public void setActiveAccounts(int aac) {
-		activeAccounts = aac;
-	}
 
 	// Getters
-	public Account[] getAccounts() {
+	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
 
 	public int getActiveAccounts() {
-		return activeAccounts;
+		return accounts.size();
 	}
 
 	/*
@@ -37,14 +35,13 @@ public class Bank {
 
 	/*
 	 * Input: Account object containing newly opened account Return: True if added
-	 * to array sucessfully Return: False cannot add to array.
+	 * to array successfully Return: False cannot add to array.
 	 */
 	public boolean openNewAcct(Account newAccount) {
 		int index;
 		index = findAcctIndex(newAccount.getAccountNumber());
 		if (index == -1) {
-			accounts[activeAccounts] = newAccount;
-			activeAccounts++;
+			accounts.add(newAccount);
 			return true;
 		} else {
 			return false;
@@ -56,8 +53,8 @@ public class Bank {
 	 */
 	public int findAcctSsn(String reqSsn) {
 		Depositor tempDep;
-		for (int i = 0; i < activeAccounts; i++) {
-			tempDep = accounts[i].getDepositor();
+		for (int i = 0; i < accounts.size(); i++) {
+			tempDep = accounts.get(i).getDepositor();
 			if (reqSsn.equals(tempDep.getSsn()))
 				return i;
 		}
@@ -68,8 +65,8 @@ public class Bank {
 	 * Input: Account number to find Return: Index of acctToFind
 	 */
 	public int findAcctIndex(int acctToFind) {
-		for (int i = 0; i < activeAccounts; i++) {
-			if (acctToFind == accounts[i].getAccountNumber())
+		for (int i = 0; i < accounts.size(); i++) {
+			if (acctToFind == accounts.get(i).getAccountNumber())
 				return i;
 		}
 		return -1;
@@ -83,8 +80,7 @@ public class Bank {
 		int index;
 		index = findAcctIndex(acctToDelete);
 		if (index != -1) {
-			accounts[activeAccounts] = accounts[index];
-			activeAccounts--;
+			accounts.remove(index);
 			return true;
 		} else {
 			return false;

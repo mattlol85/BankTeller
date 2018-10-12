@@ -1,24 +1,28 @@
+import java.util.ArrayList;
+
 public class Account {
 	private Depositor depositor;
 	private int accountNumber;
 	private String accountType;
 	private double balance;
+	private ArrayList<Transaction> transaction;
 
 	// No-Arg Constructor
 	public Account() {
 		depositor = new Depositor();
 		accountNumber = 0;
 		accountType = "";
-		balance = 0.0;
+		balance = 0.0;		transaction = new ArrayList<>();
 
 	}
 
 	// Argument Constructor
-	public Account(int an, String at, double b, Depositor d) {
+	public Account(int an, String at, double b, Depositor d,ArrayList newTrans) {
 		accountNumber = an;
 		accountType = at;
 		balance = b;
 		depositor = d;
+		transaction = newTrans;
 	}
 
 	// Setters

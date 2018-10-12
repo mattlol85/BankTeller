@@ -173,7 +173,7 @@ Error: 1 is an invalid selection -  try again
 987654         |2.33          |Joe        |Smith       |111447777         |CD           |
 222222         |5000.00       |Brown      |McDonald    |883567324         |Checking     |
 333333         |999.99        |Denise     |Jones       |111223333         |Checking     |
-444444         |0.00          |Henry      |McBroke     |222334444         |CD           |
 868686         |0.00          |Smith      |TestMan2    |111112222         |Checking     |
+123123         |500.00        |Gage       |Finneas     |333224444         |CD           |
 |***************************************************************************************|
 
