@@ -43,16 +43,16 @@ public class Transaction {
 	public double getTransactionAmount() {
 		return transactionAmount;
 	}
-	public static void newAcctTrans(String transType,Double reqAmount) {
+	public void newAcctTrans(String transType) {
 		
 	}
-	public static void depositTrans(String transType,Double reqAmount) {
+	public void depositTrans(String transType,Double reqAmount) {
 		
 	}
-	public static void withdrawalTrans(String transType,Double reqAmount) {
+	public void withdrawalTrans(String transType,Double reqAmount) {
 		
 	}
-	public static void balanceTrans(String transType) {
+	public void balanceTrans(String transType) {
 		
 	}
 	

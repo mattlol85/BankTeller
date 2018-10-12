@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class BankTeller {
 	public static void main(String a[]) throws IOException {
 		// Constant declaration of maximum accounts
-		final int MAX_ACCOUNTS = 50;
 		char choice; // menu item selected
 		boolean not_done = true; // loop control flag
 		ArrayList<Account> accounts = new ArrayList<>();
@@ -96,7 +95,7 @@ public class BankTeller {
 		System.out.print("Enter the account number: "); // prompt for account number
 		requestedAccount = kybd.nextInt(); // read-in the account number
 		System.out.println(requestedAccount);
-		index = bank.findAcctIndex(requestedAccount);
+		index = bank.findAccountByNumber(requestedAccount);
 		// call findAcct to search if requestedAccount exists
 		if (index == -1) // invalid account
 		{
@@ -130,7 +129,7 @@ public class BankTeller {
 		requestedAccount = kybd.nextInt(); // read-in the account number
 
 		// call findAcct to search if requestedAccount exists
-		index = bank.findAcctIndex(requestedAccount);
+		index = bank.findAccountByNumber(requestedAccount);
 
 		if (index == -1) // invalid account
 		{
@@ -183,7 +182,8 @@ public class BankTeller {
 		System.out.println();
 		System.out.print("Please enter the account number you would like to close.\n");
 		accountToDelete = kybd.nextInt();
-		index = bank.findAcctIndex(accountToDelete);
+		
+		index = bank.findAccountByNumber(accountToDelete);
 
 		if (index != -1) {
 			// ACCOUNT FOUND
@@ -230,7 +230,7 @@ public class BankTeller {
 		System.out.println();
 		System.out.println("Please enter your Social Security Number as one whole number\n");
 		requestedSsn = kybd.next();
-		index = bank.findAcctSsn(requestedSsn);
+		index = bank.findAcctBySsn(requestedSsn);
 		// Checks to see if the request matches the database
 
 		if (index != -1) { // If match is found; create temporary account
@@ -271,7 +271,7 @@ public class BankTeller {
 		System.out.println("Enter your Social Security Number\n");
 		System.out.println("ENTER AS ONE NUMBER\n");
 		String ssn = kybd.next();
-		if (bank.findAcctSsn(ssn) != -1) {
+		if (bank.findAcctBySsn(ssn) != -1) {
 			// SSN already exists
 			outFile.println("|************************************|");
 			outFile.println("SSN: " + ssn + " aready exists");
@@ -286,7 +286,7 @@ public class BankTeller {
 		Name myName = new Name(lastName, firstName);
 		Depositor newDepositor = new Depositor(myName, ssn);
 
-		if ((bank.findAcctIndex(newAcctNum)) == -1) {
+		if ((bank.findAccountByNumber(newAcctNum)) == -1) {
 			// Account number does not exist
 			do {
 				showAcctMenu();
@@ -295,7 +295,7 @@ public class BankTeller {
 				case '1':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountSavings = new Account(newAcctNum, "Savings", 0.0, newDepositor,transactions);
+					Account newAccountSavings = new Account(newAcctNum, "Savings", 0.0, newDepositor,transactions,true);
 					outFile.println("|************************************|");
 					outFile.println("New account created:");
 					outFile.println("Social Security Number: " + newDepositor.getSsn() + "\n");
@@ -311,7 +311,7 @@ public class BankTeller {
 				case '2':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountChecking = new Account(newAcctNum, "Checking", 0.0, newDepositor,transactions);
+					Account newAccountChecking = new Account(newAcctNum, "Checking", 0.0, newDepositor,transactions,true);
 					outFile.println("|************************************|");
 					outFile.println("*New account created*:");
 					outFile.println("Social Security Number: " + newDepositor.getSsn() + "\n");
@@ -327,7 +327,7 @@ public class BankTeller {
 				case '3':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountCD = new Account(newAcctNum, "CD", 0.0, newDepositor,transactions);
+					Account newAccountCD = new Account(newAcctNum, "CD", 0.0, newDepositor,transactions,true);
 					bank.openNewAcct(newAccountCD);
 					outFile.println("|************************************|");
 					outFile.println("New account created:");
@@ -346,7 +346,7 @@ public class BankTeller {
 				}
 			} while (not_done);
 			outFile.flush();
-		} else if (bank.findAcctIndex(newAcctNum) != -1) {
+		} else if (bank.findAccountByNumber(newAcctNum) != -1) {
 			outFile.println("|****************************************************|");
 			System.out.println("Account " + newAcctNum + " already in database.");
 			outFile.println("Account " + newAcctNum + " already in database.");
@@ -376,7 +376,7 @@ public class BankTeller {
 			Depositor tempDep = new Depositor(tempName, tokens[4]);
 			ArrayList<Transaction> transactions = new ArrayList<>();
 			Account tempAcc = new Account(Integer.parseInt(tokens[0]), tokens[5], Double.parseDouble(tokens[1]),
-					tempDep,transactions);
+					tempDep,transactions,true);
 			
 			accounts.add(tempAcc);
 		}
@@ -478,7 +478,7 @@ public class BankTeller {
 		requestedAccount = kybd.nextInt(); // read-in the account number
 
 		// call findAcct to search if requestedAccount exists
-		index = bank.findAcctIndex(requestedAccount);
+		index = bank.findAccountByNumber(requestedAccount);
 
 		if (index == -1) // invalid account
 		{
