@@ -15,11 +15,11 @@ public class BankTeller {
 		ArrayList<Account> accounts = new ArrayList<>();
 
 		// open input test cases file
-		File testFile = new File("testcases.txt");
+		 File testFile = new File("testcases.txt");
 
 		// create Scanner object
-		Scanner kybd = new Scanner(testFile);
-		// Scanner kybd = new Scanner(System.in);
+		 Scanner kybd = new Scanner(testFile);
+		//Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -68,7 +68,16 @@ public class BankTeller {
 				break;
 			case 'c':
 			case 'C':
-				closeAccount(bankOfAmerica,kybd);
+				closeAccount(bankOfAmerica, kybd);
+				break;
+			case 'h':
+			case 'H':
+				advancedAccountInfo(bankOfAmerica, kybd);
+				break;
+			case 'r':
+			case 'R':
+				reopenAcct(bankOfAmerica, kybd);
+				break;
 			default:
 				outFile.println("|********************************************|");
 				outFile.println("Error: " + choice + " is an invalid selection -  try again");
@@ -89,22 +98,31 @@ public class BankTeller {
 		System.out.println("The program is terminating");
 	}
 
+	private static void reopenAcct(Bank bankOfAmerica, Scanner kybd) {
+		// TODO Create Method
+
+	}
+
+	private static void advancedAccountInfo(Bank bankOfAmerica, Scanner kybd) {
+		// TODO Create Method
+
+	}
+
 	private static void closeAccount(Bank bankOfAmerica, Scanner kybd) {
-		// TODO Auto-generated method stub
-		
+		// TODO Create Method
+
 	}
 
 	private static void balance(Bank bank, PrintWriter outFile, Scanner kybd) {
 		int requestedAccount;
 		int index;
 		ArrayList<Account> accounts = bank.getAccounts();
-
 		System.out.println();
 		System.out.print("Enter the account number: "); // prompt for account number
 		requestedAccount = kybd.nextInt(); // read-in the account number
 		System.out.println(requestedAccount);
 		index = bank.findAccountByNumber(requestedAccount);
-		// call findAcct to search if requestedAccount exists
+		// call findAcctByNumber to search if requestedAccount exists
 		if (index == -1) // invalid account
 		{
 			outFile.println("|************************************|");
@@ -122,8 +140,17 @@ public class BankTeller {
 			outFile.printf("Current Balance: $%.2f\n", accounts.get(index).getBalance());
 			outFile.println("|********************************************|");
 			outFile.println("");
-			accounts.get(index).addTransaction("Balance Inquiry",0.0);
+			System.out.println("|********************************************|");
+			System.out.println("Transaction Requested: Balance Inquiry");
+			System.out.println("Account Number: " + requestedAccount);
+			System.out.printf("Current Balance: $%.2f\n", accounts.get(index).getBalance());
+			System.out.println("|********************************************|");
+			System.out.println("");
 			outFile.flush(); // flush the output buffer
+			// Save transaction to array
+			Transaction newTransaction = new Transaction("Balance Inquiry", 0.0, true);
+			accounts.get(index).addTransaction(newTransaction);
+
 		}
 	}
 
@@ -160,6 +187,9 @@ public class BankTeller {
 				outFile.printf("Error: $%.2f is an invalid amount\n", amountToDeposit);
 				outFile.println("|************************************|");
 				outFile.println();
+				outFile.flush();
+				Transaction newTrans = new Transaction("Deposit", amountToDeposit, false);
+				accounts.get(index).addTransaction(newTrans);
 			} else {
 				outFile.println("|************************************|");
 				outFile.println("Transaction Requested: Deposit");
@@ -171,12 +201,12 @@ public class BankTeller {
 				outFile.printf("New Balance: $%.2f\n", accounts.get(index).getBalance());
 				System.out.println("Deposit complete.");
 				outFile.println("|************************************|");
+				outFile.flush();
+				Transaction newTrans = new Transaction("Deposit", amountToDeposit, true);
+				accounts.get(index).addTransaction(newTrans);
 
 			}
 		}
-		outFile.println();
-
-		outFile.flush(); // flush the output buffer
 	}
 
 	/*
@@ -187,16 +217,16 @@ public class BankTeller {
 	private static void deleteAcct(Bank bank, PrintWriter outFile, Scanner kybd) {
 		int accountToDelete;
 		int index;
-		ArrayList<Account> tempAccts = bank.getAccounts();
+		ArrayList<Account> accounts = bank.getAccounts();
 		System.out.println();
-		System.out.print("Please enter the account number you would like to close.\n");
+		System.out.print("Please enter the account number you would like to delete.\n");
 		accountToDelete = kybd.nextInt();
-		
+
 		index = bank.findAccountByNumber(accountToDelete);
 
 		if (index != -1) {
 			// ACCOUNT FOUND
-			if (tempAccts.get(index).getBalance() == 0.00) {
+			if (accounts.get(index).getBalance() == 0.00) {
 				outFile.println("|**************************************************|");
 				outFile.println("Account: " + accountToDelete + " has been deleted");
 				outFile.println("|**************************************************|");
@@ -207,18 +237,21 @@ public class BankTeller {
 				// BALANCE IS NOT ZERO
 				outFile.println("|**************************************************|");
 				outFile.println("Account: " + accountToDelete + " still has a positive balance.");
-				outFile.println("Balance: " + tempAccts.get(index).getBalance());
+				outFile.println("Balance: " + accounts.get(index).getBalance());
 				outFile.println("|**************************************************|");
 				outFile.println("");
-				System.out.println("");
+				Transaction newTrans = new Transaction("Delete", accounts.get(index).getBalance(), false);
+				accounts.get(index).addTransaction(newTrans);
 			}
 		} else if (index == -1) {
+			// ACCOUNT NOT FOUND
 			outFile.println("|**************************************************|");
 			System.out.println("Account number " + accountToDelete + " not found.");
 			outFile.println("Account number " + accountToDelete + " not found.");
 			outFile.println("|**************************************************|");
 			outFile.println("");
 		}
+		outFile.flush();
 	}
 
 	/*
@@ -271,32 +304,32 @@ public class BankTeller {
 	 */
 	public static void newAcct(Bank bank, PrintWriter outFile, Scanner kybd) {
 		int choice;
-		//Initalize new ArrayList for the new account
+		// Initialize new ArrayList for the new account
 		ArrayList<Transaction> transactions = new ArrayList<>();
-		//Set a boolean for when the user needs to choose an account type
+		// Set a boolean for when the user needs to choose an account type
 		boolean not_done = true;
 		System.out.print("Enter your deisred account number.");
 		int newAcctNum = kybd.nextInt();
-		System.out.println("Enter your Social Security Number\n");
-		System.out.println("ENTER AS ONE NUMBER\n");
-		String ssn = kybd.next();
-		if (bank.findAcctBySsn(ssn) != -1) {
-			// SSN already exists
-			outFile.println("|************************************|");
-			outFile.println("SSN: " + ssn + " aready exists");
-			outFile.println("|************************************|");
-			outFile.println("");
-		}
-		System.out.print("Enter first name: ");
-		String firstName = kybd.next();
-		System.out.print("Enter last name: ");
-		String lastName = kybd.next();
-
-		Name myName = new Name(lastName, firstName);
-		Depositor newDepositor = new Depositor(myName, ssn);
-
 		if ((bank.findAccountByNumber(newAcctNum)) == -1) {
 			// Account number does not exist
+			System.out.println("Enter your Social Security Number\n");
+			System.out.println("ENTER AS ONE NUMBER\n");
+			String ssn = kybd.next();
+			if (bank.findAcctBySsn(ssn) != -1) {
+				// SSN already exists
+				outFile.println("|************************************|");
+				outFile.println("SSN: " + ssn + " aready exists");
+				outFile.println("|************************************|");
+				outFile.println("");
+			}
+			System.out.print("Enter first name: ");
+			String firstName = kybd.next();
+			System.out.print("Enter last name: ");
+			String lastName = kybd.next();
+
+			Name myName = new Name(lastName, firstName);
+			Depositor newDepositor = new Depositor(myName, ssn);
+
 			do {
 				showAcctMenu();
 				choice = kybd.next().charAt(0);
@@ -304,7 +337,10 @@ public class BankTeller {
 				case '1':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountSavings = new Account(newAcctNum, "Savings", 0.0, newDepositor,transactions,true);
+					Account newAccountSavings = new Account(newAcctNum, "Savings", 0.0, newDepositor, transactions,
+							true);
+					Transaction newTrans = new Transaction("New Account Creation", true);
+					newAccountSavings.addTransaction(newTrans);
 					outFile.println("|************************************|");
 					outFile.println("New account created:");
 					outFile.println("Social Security Number: " + newDepositor.getSsn() + "\n");
@@ -315,12 +351,16 @@ public class BankTeller {
 					outFile.println("|************************************|");
 					outFile.println();
 					bank.openNewAcct(newAccountSavings);
+
 					not_done = false;
 					break;
 				case '2':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountChecking = new Account(newAcctNum, "Checking", 0.0, newDepositor,transactions,true);
+					Account newAccountChecking = new Account(newAcctNum, "Checking", 0.0, newDepositor, transactions,
+							true);
+					Transaction checkingTrans = new Transaction("New Account Creation", true);
+					newAccountChecking.addTransaction(checkingTrans);
 					outFile.println("|************************************|");
 					outFile.println("*New account created*:");
 					outFile.println("Social Security Number: " + newDepositor.getSsn() + "\n");
@@ -336,7 +376,9 @@ public class BankTeller {
 				case '3':
 					System.out.println("Account Sucessfully created!");
 					System.out.println();
-					Account newAccountCD = new Account(newAcctNum, "CD", 0.0, newDepositor,transactions,true);
+					Account newAccountCD = new Account(newAcctNum, "CD", 0.0, newDepositor, transactions, true);
+					Transaction cDTrans = new Transaction("New Account Creation", true);
+					newAccountCD.addTransaction(cDTrans);
 					bank.openNewAcct(newAccountCD);
 					outFile.println("|************************************|");
 					outFile.println("New account created:");
@@ -379,14 +421,14 @@ public class BankTeller {
 		while (sc.hasNext()) {
 			line = sc.nextLine();
 			String tokens[] = line.split(" ");
-			
+
 			Name tempName = new Name(tokens[2], tokens[3]);
-			
+
 			Depositor tempDep = new Depositor(tempName, tokens[4]);
 			ArrayList<Transaction> transactions = new ArrayList<>();
 			Account tempAcc = new Account(Integer.parseInt(tokens[0]), tokens[5], Double.parseDouble(tokens[1]),
-					tempDep,transactions,true);
-			
+					tempDep, transactions, true);
+
 			accounts.add(tempAcc);
 		}
 		// Close file.
@@ -502,7 +544,7 @@ public class BankTeller {
 			amountToWithdraw = kybd.nextDouble(); // read-in the amount to withdraw
 
 			if (amountToWithdraw <= 0.00 || amountToWithdraw > accounts.get(index).getBalance()) { // Checks for invalid
-																								// amount to
+																									// amount to
 				// withdraw
 				outFile.println("|************************************|");
 				outFile.println("Transaction Requested: Withdrawal");

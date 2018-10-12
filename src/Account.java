@@ -18,7 +18,7 @@ public class Account {
 	}
 
 	// Argument Constructor
-	public Account(int an, String at, double b, Depositor d,ArrayList newTrans,Boolean status) {
+	public Account(int an, String at, double b, Depositor d,ArrayList<Transaction> newTrans,Boolean status) {
 		accountNumber = an;
 		accountType = at;
 		balance = b;
@@ -47,10 +47,7 @@ public class Account {
 	public void setAccountStatus(boolean s) {
 		accountStatus = s;
 	}
-	public void addTransaction(String tt, Double ta) {
-	//	transaction.add()
-	}
-
+	
 	// Getters
 	public Depositor getDepositor() {
 		return depositor;
@@ -78,11 +75,16 @@ public class Account {
 		balance = balance - with;
 
 	}
-	public  boolean closeAccount() {
+	public boolean closeAccount() {
 		return true;
 	}
 	
-	public  boolean openAccount() {
+	public boolean openAccount() {
 		return true;
 	}
+	
+	public void addTransaction(Transaction t) {
+		transaction.add(t);
+	}
+
 }

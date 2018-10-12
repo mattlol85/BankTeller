@@ -18,11 +18,17 @@ public class Transaction {
 	public Transaction() {
 		transactionType = "";
 		transactionAmount = 0.0;
+		sucess = false;
 	}
 	
-	public Transaction(String transType,Double reqAmount) {
+	public Transaction(String transType,Double reqAmount,boolean s) {		//For deposit/withdraw
 		transactionType = transType;
 		transactionAmount = reqAmount;
+		sucess = s;
+	}
+	public Transaction(String transType,boolean s) {		//For Open/Close Acct
+		transactionType = transType;
+		sucess = s;
 	}
 	
 	//Setters
