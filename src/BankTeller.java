@@ -9,17 +9,16 @@ import java.util.Scanner;
  */
 public class BankTeller {
 	public static void main(String a[]) throws IOException {
-		// Constant declaration of maximum accounts
 		char choice; // menu item selected
 		boolean not_done = true; // loop control flag
 		ArrayList<Account> accounts = new ArrayList<>();
 
 		// open input test cases file
-		 File testFile = new File("testcases.txt");
+		//File testFile = new File("testcases.txt");
 
 		// create Scanner object
-		 Scanner kybd = new Scanner(testFile);
-		//Scanner kybd = new Scanner(System.in);
+		//Scanner kybd = new Scanner(testFile);
+		 Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -41,6 +40,7 @@ public class BankTeller {
 			case 'Q':
 				not_done = false;
 				printAccts(bankOfAmerica, outFile);
+				// printTransactions(bankOfAmerica,outFile);
 				break;
 			case 'b':
 			case 'B':
@@ -68,7 +68,7 @@ public class BankTeller {
 				break;
 			case 'c':
 			case 'C':
-				closeAccount(bankOfAmerica, kybd);
+				closeAccount(bankOfAmerica, kybd, outFile);
 				break;
 			case 'h':
 			case 'H':
@@ -78,12 +78,19 @@ public class BankTeller {
 			case 'R':
 				reopenAcct(bankOfAmerica, kybd);
 				break;
+			case 'm':
+				printAllDataToConsole(bankOfAmerica);
+				break;
 			default:
 				outFile.println("|********************************************|");
 				outFile.println("Error: " + choice + " is an invalid selection -  try again");
 				outFile.println("|********************************************|");
 				outFile.println("");
 				outFile.flush();
+				System.out.println("|********************************************|");
+				System.out.println("Error: " + choice + " is an invalid selection -  try again");
+				System.out.println("|********************************************|");
+				System.out.println("");
 				break;
 			}
 
@@ -98,21 +105,159 @@ public class BankTeller {
 		System.out.println("The program is terminating");
 	}
 
-	private static void reopenAcct(Bank bankOfAmerica, Scanner kybd) {
-		// TODO Create Method
+	private static void printAllDataToConsole(Bank bank) {
+		ArrayList<Account> accounts = bank.getAccounts();
+		ArrayList<Transaction> tempTrans;
+		Account tempAcc;
+		Depositor tempDep;
+		Name tempName;
+		for (int i = 0; i < accounts.size(); i++) {
+			// Print Account data
+			tempAcc = accounts.get(i);
+			tempDep = accounts.get(i).getDepositor();
+			tempName = tempDep.getName();
+			System.out.println("****************************************************************");
+			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
+			System.out.println("Account Number: " + tempAcc.getAccountNumber());
+			System.out.println("SSN: " + tempDep.getSsn());
+			System.out.println("Account Type: " + tempAcc.getAccountType());
+			System.out.println("Balance: " + tempAcc.getBalance());
+			System.out.println("Account Status: " + tempAcc.getAccountStatus());
+			System.out.println("****************************************************************");
+
+			for (int j = 0; j < tempAcc.getTransactionSize(); j++) {
+				tempTrans = tempAcc.getTransactions();
+				// Print transaction data
+				System.out.println("Transaction Type: " + tempTrans.get(j).getTransactionType());
+				System.out.println("Transaction Amount: " + tempTrans.get(j).getTransactionAmount());
+				System.out.println("Transaction Status: " + tempTrans.get(j).getTransactionSuccess());
+				System.out.println();
+			}
+		}
 
 	}
 
-	private static void advancedAccountInfo(Bank bankOfAmerica, Scanner kybd) {
-		// TODO Create Method
+	private static void reopenAcct(Bank bank, Scanner kybd) {
+		ArrayList<Account> accounts = bank.getAccounts();
+		System.out.println("Enter account number to reopen.");
+		int acctToReopen = kybd.nextInt();
+		int index = bank.findAccountByNumber(acctToReopen);
+		
+		if(accounts.get(index).getAccountStatus()) {
+			//ACCOUNT IS ALREADY OPEN
+			Transaction reopenTrans = new Transaction("Reopen Account",false);
+			accounts.get(index).addTransaction(reopenTrans);
+			System.out.println("Account is already open !");
+			System.out.println("");
 
+		}else if(!accounts.get(index).getAccountStatus()) {
+			//ACCOUNT IS CLOSED; REOPEN ACCOUNT
+			accounts.get(index).setAccountStatus(true);
+			Transaction reopenTrans = new Transaction("Reopen Account",true);
+			accounts.get(index).addTransaction(reopenTrans);
+			accounts.get(index).setAccountStatus(true);
+		}
 	}
 
-	private static void closeAccount(Bank bankOfAmerica, Scanner kybd) {
-		// TODO Create Method
+	/*
+	 * TODO create method info
+	 * 
+	 */
+	private static void advancedAccountInfo(Bank bank, Scanner kybd) {
+		String requestedSsn;
+		// Import array of bank account objects
+		ArrayList<Account> accounts = bank.getAccounts();
+		Depositor tempDep;
+		Name tempName;
+		Account tempAcc;
+		int index;
 
+		System.out.println();
+		System.out.println("Please enter your Social Security Number as one whole number\n");
+		requestedSsn = kybd.next();
+		index = bank.findAcctBySsn(requestedSsn);
+		// Checks to see if the request matches the database
+
+		if (index != -1) { // If match is found; create temporary account
+			tempAcc = accounts.get(index);
+			tempDep = tempAcc.getDepositor();
+			tempName = tempDep.getName();
+			System.out.println("|**************************************************|");
+			System.out.println("Social Security Number: " + requestedSsn + "\n");
+			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
+			System.out.println("Account number: " + tempAcc.getAccountNumber());
+			System.out.println("Account Balance: " + tempAcc.getBalance());
+			System.out.println("Account Type: " + tempAcc.getAccountType());
+			System.out.println("Is Open?: " + tempAcc.getAccountStatus());
+			System.out.println("|* * * * * * * * * * * * * * * * * * * * * * * * * *|");
+			System.out.println("\tTransactions");
+			//Import ArrayList of transactions from account
+			ArrayList<Transaction> tempTrans = tempAcc.getTransactions();
+			for (int i = 0; i < tempAcc.getTransactionSize(); i++) {
+				tempTrans = tempAcc.getTransactions();
+				// Print transaction data
+				System.out.println("Transaction Type: " + tempTrans.get(i).getTransactionType());
+				System.out.println("Transaction Amount: " + tempTrans.get(i).getTransactionAmount());
+				System.out.println("Transaction Status: " + tempTrans.get(i).getTransactionSuccess());
+				System.out.println();
+			}
+			System.out.println("|**************************************************|");
+			System.out.println();
+
+		} else if (index == -1) {
+			System.out.println("|**************************************************|");
+			System.out.println("ERROR SSN: " + requestedSsn + " not found!");
+			System.out.println("|**************************************************|");
+			System.out.println("");
+
+		}
 	}
+	/*
+	 * TODO Add comments.
+	 */
+	private static void closeAccount(Bank bank, Scanner kybd, PrintWriter outFile) {
+		int accountToClose;
+		ArrayList<Account> accounts = bank.getAccounts();
+		System.out.println("Please enter the account number you would like to close.\n");
+		accountToClose = kybd.nextInt();
 
+		int index = bank.findAccountByNumber(accountToClose);
+
+		if (index != -1) {
+			// ACCOUNT FOUND; CLOSE ACCOUNT
+			if (accounts.get(index).getBalance() == 0.00) {
+				System.out.println("|**************************************************|");
+				System.out.println("Account: " + accountToClose + " has been closed");
+				System.out.println("|**************************************************|");
+				System.out.println("");
+				accounts.get(index).setAccountStatus(false);
+				Transaction closeTransaction = new Transaction("Close Account", true);
+				accounts.get(index).addTransaction(closeTransaction);
+				// BALANCE IS ZERO
+			} else {
+				// BALANCE IS NOT ZERO; CANNOT CLOSE
+				System.out.println("|**************************************************|");
+				System.out.println("Account: " + accountToClose + " still has a positive balance.");
+				System.out.println("Balance: " + accounts.get(index).getBalance());
+				System.out.println("|**************************************************|");
+				System.out.println("");
+				Transaction hasBalTransaction = new Transaction("Close Account", accounts.get(index).getBalance(), false);
+				accounts.get(index).addTransaction(hasBalTransaction);
+			}
+		} else if (index == -1) {
+			// ACCOUNT NOT FOUND
+			outFile.println("|**************************************************|");
+			outFile.println("Transaction Type: Close Account");
+			outFile.println("Account number " + accountToClose + " not found.");
+			outFile.println("Account number " + accountToClose + " not found.");
+			outFile.println("|**************************************************|");
+			outFile.println("");
+			outFile.flush();
+		}
+	}
+	/*
+	 * TODO add comments
+	 */
 	private static void balance(Bank bank, PrintWriter outFile, Scanner kybd) {
 		int requestedAccount;
 		int index;
@@ -148,7 +293,7 @@ public class BankTeller {
 			System.out.println("");
 			outFile.flush(); // flush the output buffer
 			// Save transaction to array
-			Transaction newTransaction = new Transaction("Balance Inquiry", 0.0, true);
+			Transaction newTransaction = new Transaction("Balance Inquiry", true);
 			accounts.get(index).addTransaction(newTransaction);
 
 		}
@@ -237,7 +382,7 @@ public class BankTeller {
 				// BALANCE IS NOT ZERO
 				outFile.println("|**************************************************|");
 				outFile.println("Account: " + accountToDelete + " still has a positive balance.");
-				outFile.println("Balance: " + accounts.get(index).getBalance());
+				outFile.print("Balance: $ %14.2" + accounts.get(index).getBalance());
 				outFile.println("|**************************************************|");
 				outFile.println("");
 				Transaction newTrans = new Transaction("Delete", accounts.get(index).getBalance(), false);
@@ -260,7 +405,6 @@ public class BankTeller {
 	 * print their information.
 	 */
 	private static void accountInfo(Bank bank, Scanner kybd) {
-		// TODO Auto-generated method stub
 		String requestedSsn;
 		// Import array of bank account objects
 		ArrayList<Account> accounts = bank.getAccounts();
@@ -279,15 +423,12 @@ public class BankTeller {
 			tempAcc = accounts.get(index);
 			tempDep = tempAcc.getDepositor();
 			tempName = tempDep.getName();
-			System.out.println("|**************************************************|");
+			System.out.println("|***************************************************|");
 			System.out.println("Social Security Number: " + requestedSsn + "\n");
 			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
 			System.out.println("Account number: " + tempAcc.getAccountNumber());
 			System.out.println("Account Balance: " + tempAcc.getBalance());
 			System.out.println("Account Type: " + tempAcc.getAccountType());
-			System.out.println("|**************************************************|");
-			System.out.println();
-
 		} else if (index == -1) {
 			System.out.println("|**************************************************|");
 			System.out.println("ERROR SSN: " + requestedSsn + " not found!");
@@ -452,8 +593,13 @@ public class BankTeller {
 		System.out.println("\t     I -- Account Info");
 		System.out.println("\t     X -- Delete Account");
 		System.out.println("\t     Q -- Quit");
+		System.out.println("\t     H -- Advanced Account Info");
+		System.out.println("\t     C -- Close Account");
+		System.out.println("\t     R -- Reopen Account");
+		System.out.println("\t     m -- DISPLAY ALL DATA ON SCREEN");
 		System.out.println();
-		System.out.print("\tEnter your selection: ");
+		System.out.print("\tEnter your selection: \n");
+		System.out.println("");
 	}
 
 	/*
@@ -481,7 +627,7 @@ public class BankTeller {
 			tempName = tempDep.getName();
 
 			outFile.printf("%-15d|", tempAcc.getAccountNumber());
-			outFile.printf("%-14.2f|", tempAcc.getBalance());
+			outFile.printf("$%-14.2f|", tempAcc.getBalance());
 			outFile.printf("%-11s|", tempName.getFirst());
 			outFile.printf("%-12s|", tempName.getLast());
 			outFile.printf("%-18s|", tempDep.getSsn());

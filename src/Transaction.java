@@ -26,7 +26,7 @@ public class Transaction {
 		transactionAmount = reqAmount;
 		sucess = s;
 	}
-	public Transaction(String transType,boolean s) {		//For Open/Close Acct
+	public Transaction(String transType,boolean s) {		//For Open/Close Account
 		transactionType = transType;
 		sucess = s;
 	}

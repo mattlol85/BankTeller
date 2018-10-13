@@ -5,15 +5,16 @@ public class Account {
 	private int accountNumber;
 	private String accountType;
 	private double balance;
-	private ArrayList<Transaction> transaction;
-	private boolean accountStatus;			//TRUE = OPEN		FALSE = CLOSED
+	private ArrayList<Transaction> transactions;
+	private boolean isOpen;			//TRUE = OPEN		FALSE = CLOSED
 
 	// No-Arg Constructor
 	public Account() {
 		depositor = new Depositor();
 		accountNumber = 0;
 		accountType = "";
-		balance = 0.0;		transaction = new ArrayList<>();
+		balance = 0.0;
+		transactions = new ArrayList<>();
 
 	}
 
@@ -23,8 +24,8 @@ public class Account {
 		accountType = at;
 		balance = b;
 		depositor = d;
-		transaction = newTrans;
-		accountStatus = status;
+		transactions = newTrans;
+		isOpen = status;
 		
 	}
 
@@ -45,7 +46,7 @@ public class Account {
 		balance = b;
 	}
 	public void setAccountStatus(boolean s) {
-		accountStatus = s;
+		isOpen = s;
 	}
 	
 	// Getters
@@ -64,7 +65,15 @@ public class Account {
 	public double getBalance() {
 		return balance;
 	}
-	
+	public int getTransactionSize() {
+		return transactions.size();
+	}
+	public ArrayList<Transaction> getTransactions(){
+		return transactions;
+	}
+	public boolean getAccountStatus() {
+		return isOpen;
+	}
 	/*
 	 * Methods
 	 */
@@ -84,7 +93,7 @@ public class Account {
 	}
 	
 	public void addTransaction(Transaction t) {
-		transaction.add(t);
+		transactions.add(t);
 	}
 
 }
