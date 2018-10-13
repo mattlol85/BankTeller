@@ -14,11 +14,11 @@ public class BankTeller {
 		ArrayList<Account> accounts = new ArrayList<>();
 
 		// open input test cases file
-		 File testFile = new File("testcases.txt");
+		File testFile = new File("testcases.txt");
 
 		// create Scanner object
-		 Scanner kybd = new Scanner(testFile);
-		//Scanner kybd = new Scanner(System.in);
+		Scanner kybd = new Scanner(testFile);
+		// Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -79,7 +79,7 @@ public class BankTeller {
 				reopenAcct(bankOfAmerica, kybd);
 				break;
 			case 'm':
-//				printAllDataToConsole(bankOfAmerica);
+				// printAllDataToConsole(bankOfAmerica);
 				break;
 			default:
 				outFile.println("|********************************************|");
@@ -104,8 +104,11 @@ public class BankTeller {
 		System.out.println();
 		System.out.println("The program is terminating");
 	}
+
 	/*
-	 * TODO add description
+	 * Method Description: Gets called when quitting the program after printAccts()
+	 * This method iterates though the array of accounts and then iterates through
+	 * it's array of transactions and prints them.
 	 */
 	private static void printTransactions(Bank bank, PrintWriter outFile) {
 		ArrayList<Account> accounts = bank.getAccounts();
@@ -116,9 +119,10 @@ public class BankTeller {
 			tempAcc = accounts.get(i);
 			tempDep = tempAcc.getDepositor();
 			tempName = tempDep.getName();
-			outFile.println("*************************************************");
-			outFile.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
+			outFile.println("*********************************************************");
+			outFile.println("\t\t\tName: " + tempName.getFirst() + " " + tempName.getLast());
 			outFile.println("\t\t\t\tTransactions");
+			outFile.println("");
 			// Import ArrayList of transactions from account
 			ArrayList<Transaction> tempTrans = tempAcc.getTransactions();
 			outFile.printf("|%-16s|%-20s|%-18s|", "Transaction Type", "Transaction Amount", "Transaction Status");
@@ -126,10 +130,11 @@ public class BankTeller {
 			for (int j = 0; j < tempAcc.getTransactionSize(); j++) {
 				tempTrans = tempAcc.getTransactions();
 				// Print transaction data
-				String sucessString = tempTrans.get(j).getTransactionSuccess() ? "Success" : "Failed" ;
-				outFile.printf("|%-16s|",tempTrans.get(j).getTransactionType());
-				outFile.printf("$%-19s",tempTrans.get(j).getTransactionAmount());
-				outFile.printf("|%-18s|",sucessString);
+				String sucessString = tempTrans.get(j).getTransactionSuccess() ? "Success" : "Failed";
+				outFile.printf("|%-16s|", tempTrans.get(j).getTransactionType());
+				outFile.printf("$%-19s",
+						tempTrans.get(j).getTransactionAmount() == 0 ? "--" : tempTrans.get(j).getTransactionAmount());
+				outFile.printf("|%-18s|", sucessString);
 				outFile.println();
 				outFile.flush();
 
@@ -140,38 +145,34 @@ public class BankTeller {
 		}
 	}
 
-/*	private static void printAllDataToConsole(Bank bank) {
-		ArrayList<Account> accounts = bank.getAccounts();
-		ArrayList<Transaction> tempTrans;
-		Account tempAcc;
-		Depositor tempDep;
-		Name tempName;
-		for (int i = 0; i < accounts.size(); i++) {
-			// Print Account data
-			tempAcc = accounts.get(i);
-			tempDep = accounts.get(i).getDepositor();
-			tempName = tempDep.getName();
-			System.out.println("****************************************************************");
-			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
-			System.out.println("Account Number: " + tempAcc.getAccountNumber());
-			System.out.println("SSN: " + tempDep.getSsn());
-			System.out.println("Account Type: " + tempAcc.getAccountType());
-			System.out.println("Balance: " + tempAcc.getBalance());
-			System.out.println("Account Status: " + tempAcc.getAccountStatus());
-			System.out.println("****************************************************************");
-
-			for (int j = 0; j < tempAcc.getTransactionSize(); j++) {
-				tempTrans = tempAcc.getTransactions();
-				// Print transaction data
-				System.out.println("Transaction Type: " + tempTrans.get(j).getTransactionType());
-				System.out.println("Transaction Amount: " + tempTrans.get(j).getTransactionAmount());
-				System.out.println("Transaction Status: " + tempTrans.get(j).getTransactionSuccess());
-				System.out.println();
-			}
-		}
-
-	}
-*/
+	/*
+	 * private static void printAllDataToConsole(Bank bank) { ArrayList<Account>
+	 * accounts = bank.getAccounts(); ArrayList<Transaction> tempTrans; Account
+	 * tempAcc; Depositor tempDep; Name tempName; for (int i = 0; i <
+	 * accounts.size(); i++) { // Print Account data tempAcc = accounts.get(i);
+	 * tempDep = accounts.get(i).getDepositor(); tempName = tempDep.getName();
+	 * System.out.println(
+	 * "****************************************************************");
+	 * System.out.println("Name: " + tempName.getFirst() + " " +
+	 * tempName.getLast()); System.out.println("Account Number: " +
+	 * tempAcc.getAccountNumber()); System.out.println("SSN: " + tempDep.getSsn());
+	 * System.out.println("Account Type: " + tempAcc.getAccountType());
+	 * System.out.println("Balance: " + tempAcc.getBalance());
+	 * System.out.println("Account Status: " + tempAcc.getAccountStatus());
+	 * System.out.println(
+	 * "****************************************************************");
+	 * 
+	 * for (int j = 0; j < tempAcc.getTransactionSize(); j++) { tempTrans =
+	 * tempAcc.getTransactions(); // Print transaction data
+	 * System.out.println("Transaction Type: " +
+	 * tempTrans.get(j).getTransactionType());
+	 * System.out.println("Transaction Amount: " +
+	 * tempTrans.get(j).getTransactionAmount());
+	 * System.out.println("Transaction Status: " +
+	 * tempTrans.get(j).getTransactionSuccess()); System.out.println(); } }
+	 * 
+	 * }
+	 */
 	private static void reopenAcct(Bank bank, Scanner kybd) {
 		ArrayList<Account> accounts = bank.getAccounts();
 		System.out.println("Enter account number to reopen.");
@@ -196,8 +197,9 @@ public class BankTeller {
 
 	/*
 	 * 
-	 * Method Description: Prompts the user enter their SSN. If the SSN is valid and in the database
-	 * it will then display their account information, as well as their transaction history.
+	 * Method Description: Prompts the user enter their SSN. If the SSN is valid and
+	 * in the database it will then display their account information, as well as
+	 * their transaction history.
 	 */
 	private static void advancedAccountInfo(Bank bank, Scanner kybd) {
 		String requestedSsn;
@@ -249,9 +251,9 @@ public class BankTeller {
 	}
 
 	/*
-	 * Method Description: This method prompts the user to enter their account number.
-	 * If the account is found and valid then check the balance to ensure that it is zero.
-	 * If the balance is zero the account is set to closed.
+	 * Method Description: This method prompts the user to enter their account
+	 * number. If the account is found and valid then check the balance to ensure
+	 * that it is zero. If the balance is zero the account is set to closed.
 	 */
 	private static void closeAccount(Bank bank, Scanner kybd, PrintWriter outFile) {
 		int accountToClose;
@@ -264,7 +266,7 @@ public class BankTeller {
 		if (index != -1) {
 			// ACCOUNT FOUND; CLOSE ACCOUNT
 			if (accounts.get(index).getBalance() == 0.00) {
-				if(!accounts.get(index).getAccountStatus()) {		//ACCOUNT FOUND; ALREADY CLOSED
+				if (!accounts.get(index).getAccountStatus()) { // ACCOUNT FOUND; ALREADY CLOSED
 					System.out.println("|**************************************************|");
 					System.out.println("Account: " + accountToClose + " is already closed");
 					System.out.println("|**************************************************|");
@@ -286,7 +288,7 @@ public class BankTeller {
 				System.out.println("Balance: " + accounts.get(index).getBalance());
 				System.out.println("|**************************************************|");
 				System.out.println("");
-				Transaction hasBalTransaction = new Transaction("Close Account",false);
+				Transaction hasBalTransaction = new Transaction("Close Account", false);
 				accounts.get(index).addTransaction(hasBalTransaction);
 			}
 		} else if (index == -1) {
@@ -302,8 +304,8 @@ public class BankTeller {
 	}
 
 	/*
-	 * Method Description: Prompts the user to enter their account number. If the number
-	 * is valid, and the account is NOT closed, it will print the balance.
+	 * Method Description: Prompts the user to enter their account number. If the
+	 * number is valid, and the account is NOT closed, it will print the balance.
 	 */
 	private static void balance(Bank bank, PrintWriter outFile, Scanner kybd) {
 		int requestedAccount;
@@ -317,16 +319,16 @@ public class BankTeller {
 		// call findAcctByNumber to search if requestedAccount exists
 		if (index == -1) // invalid account
 		{
-			outFile.println("|************************************|");
+			outFile.println("|****************************************|");
 			outFile.println("Transaction Requested: Balance Inquiry");
 			outFile.println("Error: Account number " + requestedAccount + " does not exist");
-			outFile.println("|************************************|");
+			outFile.println("|****************************************|");
 			outFile.println("");
 			outFile.flush(); // flush the output buffer
 
 		} else // valid account
 		{
-			if(!accounts.get(index).getAccountStatus()) {
+			if (!accounts.get(index).getAccountStatus()) {
 				System.out.println("|************************************|");
 				System.out.println("Account number " + requestedAccount + " is closed !");
 				System.out.println("Please reopen the account to continue.");
@@ -355,8 +357,11 @@ public class BankTeller {
 
 		}
 	}
+
 	/*
-	 * TODO Add method desc
+	 * Method Description: Prompts the user for an account number. If the account is
+	 * found and valid it will again prompt the user for input, this time for the
+	 * amount to deposit. If it is a valid amount it will make the deposit.
 	 * 
 	 */
 	private static void deposit(Bank bank, PrintWriter outFile, Scanner kybd) {
@@ -382,18 +387,20 @@ public class BankTeller {
 			outFile.flush();
 		} else // valid account
 		{
-			if(!accounts.get(index).getAccountStatus()) {		//Valid Account; invalid status [CLOSED]
+			if (!accounts.get(index).getAccountStatus()) { // Valid Account; invalid status [CLOSED]
 				outFile.println("|************************************|");
 				outFile.println("Transaction Requested: Deposit");
-				outFile.println("Error: Account number " + requestedAccount + "is closed.");
+				outFile.println("Error: Account number " + requestedAccount + " is closed.");
 				outFile.println("|************************************|");
+				outFile.println("");
 				outFile.flush();
 				System.out.println("|************************************|");
 				System.out.println("Transaction Requested: Deposit");
-				System.out.println("Error: Account number " + requestedAccount + "is closed.");
+				System.out.println("Error: Account number " + requestedAccount + " is closed.");
 				System.out.println("|************************************|");
-				Transaction closedAcctTransaction = new Transaction("Deposit",false);
+				Transaction closedAcctTransaction = new Transaction("Deposit", false);
 				accounts.get(index).addTransaction(closedAcctTransaction);
+				return;
 			}
 			System.out.print("Enter amount to deposit: "); // prompt for amount to deposit
 			amountToDeposit = kybd.nextDouble(); // read-in the amount to deposit
@@ -405,7 +412,7 @@ public class BankTeller {
 				outFile.println("Account Number: " + requestedAccount);
 				outFile.printf("Error: $%.2f is an invalid amount\n", amountToDeposit);
 				outFile.println("|************************************|");
-				outFile.println();
+				outFile.println("");
 				outFile.flush();
 				Transaction newTrans = new Transaction("Deposit", amountToDeposit, false);
 				accounts.get(index).addTransaction(newTrans);
@@ -419,6 +426,7 @@ public class BankTeller {
 				outFile.printf("New Balance: $%.2f\n", accounts.get(index).getBalance());
 				System.out.println("Deposit complete.");
 				outFile.println("|************************************|");
+				outFile.println("");
 				outFile.flush();
 				Transaction newTrans = new Transaction("Deposit", amountToDeposit, true);
 				accounts.get(index).addTransaction(newTrans);
@@ -455,7 +463,7 @@ public class BankTeller {
 				// BALANCE IS NOT ZERO
 				outFile.println("|**************************************************|");
 				outFile.println("Account: " + accountToDelete + " still has a positive balance.");
-				outFile.printf("Balance: $%-9.2s \n" ,accounts.get(index).getBalance());
+				outFile.printf("Balance: $%-9.2s \n", accounts.get(index).getBalance());
 				outFile.println("|**************************************************|");
 				outFile.println("");
 				Transaction newTrans = new Transaction("Delete", accounts.get(index).getBalance(), false);
@@ -621,10 +629,9 @@ public class BankTeller {
 
 	}
 
-	// This method reads the database and fills the array
-	// of account objects. Returns number of active accounts.
+	// This method reads the database file and fills the ArrayList
+	// of account objects.
 	private static void readDatabase(Bank bank) throws IOException {
-		// TODO Add comments
 		// Attach database
 		File dbFile = new File("myinput.txt");
 		// Create Scanner
@@ -715,7 +722,8 @@ public class BankTeller {
 	}
 
 	/*
-	 * TODO Add method description
+	 * Method Description: Used in newAcct() to display a small menu for the user to
+	 * use when selecting an account.
 	 */
 	private static void showAcctMenu() {
 		System.out.println();
@@ -732,9 +740,9 @@ public class BankTeller {
 	}
 	/*
 	 * 
-	 * Method Desc: Asks the user for their account number. If the account is found
-	 * it will then ask for the amount to deposit. If that amount is valid it will
-	 * deposit into the account.
+	 * Method Description: Asks the user for their account number. If the account is
+	 * found it will then ask for the amount to deposit. If that amount is valid it
+	 * will deposit into the account.
 	 */
 
 	public static void withdrawal(Bank bank, PrintWriter outFile, Scanner kybd) {
@@ -751,17 +759,17 @@ public class BankTeller {
 		index = bank.findAccountByNumber(requestedAccount);
 
 		if (index == -1) {
-			//INVALID ACCOUNT
+			// INVALID ACCOUNT
 			outFile.println("|************************************************|");
 			outFile.println("Transaction Requested: Withdrawal");
 			outFile.println("Error: Account number " + requestedAccount + " does not exist");
 			outFile.println("|************************************************|");
 			outFile.println("");
-		} else {				
-			//VALID ACCOUNT
-			if(!accounts.get(index).getAccountStatus()){	//ACCOUNT IS CLOSED
-				
-				Transaction closedAcctTransaction = new Transaction("Withdraw",false);
+		} else {
+			// VALID ACCOUNT
+			if (!accounts.get(index).getAccountStatus()) { // ACCOUNT IS CLOSED
+
+				Transaction closedAcctTransaction = new Transaction("Withdraw", false);
 				accounts.get(index).addTransaction(closedAcctTransaction);
 				System.out.println("|************************************|");
 				System.out.println("Transaction Requested: Deposit");
@@ -772,13 +780,14 @@ public class BankTeller {
 			System.out.print("Enter amount to withdraw: "); // prompt for amount to withdraw
 			amountToWithdraw = kybd.nextDouble(); // read-in the amount to withdraw
 
-			if (amountToWithdraw <= 0.00 || amountToWithdraw > accounts.get(index).getBalance()) { // Checks for invalid																									// amount to
+			if (amountToWithdraw <= 0.00 || amountToWithdraw > accounts.get(index).getBalance()) { // Checks for invalid
+																									// // amount to
 				// Withdraw
 				outFile.println("|************************************|");
 				outFile.println("Transaction Requested: Withdrawal");
 				outFile.println("Account Number: " + requestedAccount);
 				if (amountToWithdraw > accounts.get(index).getBalance()) {
-					//NOT ENOUGH MONEY; INSUFFICIENT FUNDS
+					// NOT ENOUGH MONEY; INSUFFICIENT FUNDS
 					outFile.printf("You have $%.2f in your account.\n", accounts.get(index).getBalance());
 					outFile.println("Insufficient Funds.");
 					System.out.printf("You have $%.2f in your account.\n", accounts.get(index).getBalance());
@@ -786,30 +795,30 @@ public class BankTeller {
 					System.out.println("");
 					outFile.println("|************************************|");
 					outFile.println("");
-					//TRANSACTION
-					Transaction withTransaction = new Transaction("Withdraw",amountToWithdraw,false);
+					// TRANSACTION
+					Transaction withTransaction = new Transaction("Withdraw", amountToWithdraw, false);
 					accounts.get(index).addTransaction(withTransaction);
 				}
 				outFile.printf("Error: $%.2f is an invalid amount\n", amountToWithdraw);
 				outFile.println("|************************************|");
 				outFile.println("");
-				Transaction withTransaction = new Transaction("Withdraw",amountToWithdraw,false);
+				Transaction withTransaction = new Transaction("Withdraw", amountToWithdraw, false);
 				accounts.get(index).addTransaction(withTransaction);
-				
-			} else if(amountToWithdraw <= accounts.get(index).getBalance()){
+
+			} else if (amountToWithdraw <= accounts.get(index).getBalance()) {
 				outFile.println("|************************************|");
 				outFile.println("Transaction Requested: Withdrawal");
 				outFile.println("Account Number: " + requestedAccount);
 				outFile.printf("Old Balance: $%.2f\n", accounts.get(index).getBalance());
 				outFile.println();
 				outFile.println("Amount to Withdraw: $" + amountToWithdraw);
-				//DEPOSIT
+				// DEPOSIT
 				accounts.get(index).setBalance(accounts.get(index).getBalance() - amountToWithdraw);
 				outFile.printf("New Balance: $%.2f\n", accounts.get(index).getBalance());
 				outFile.println("|************************************|");
 				outFile.println("");
-				//TRANSACTION
-				Transaction withTransaction = new Transaction("Withdraw",amountToWithdraw,true);
+				// TRANSACTION
+				Transaction withTransaction = new Transaction("Withdraw", amountToWithdraw, true);
 				accounts.get(index).addTransaction(withTransaction);
 			}
 		}

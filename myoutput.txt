@@ -16,10 +16,10 @@ Account Number: 123456
 Current Balance: $200.55
 |********************************************|
 
-|************************************|
+|****************************************|
 Transaction Requested: Balance Inquiry
 Error: Account number 123642 does not exist
-|************************************|
+|****************************************|
 
 |************************************|
 Transaction Requested: Deposit
@@ -28,6 +28,7 @@ Old Balance: $200.55
 Amount to Deposit: $300.0
 New Balance: $500.55
 |************************************|
+
 |************************************|
 Transaction Requested: Deposit
 Account Number: 123456
@@ -98,6 +99,11 @@ New Balance: $0.00
 |************************************|
 
 |************************************|
+Transaction Requested: Deposit
+Error: Account number 567890 is closed.
+|************************************|
+
+|************************************|
 New account created:
 Social Security Number: 101010101
 
@@ -134,6 +140,7 @@ Old Balance: $0.00
 Amount to Deposit: $500.0
 New Balance: $500.00
 |************************************|
+
 |************************************|
 Transaction Requested: Deposit
 Account Number: 858585
@@ -141,6 +148,7 @@ Old Balance: $0.00
 Amount to Deposit: $6000.0
 New Balance: $6000.00
 |************************************|
+
 |************************************|
 Transaction Requested: Withdrawal
 Account Number: 858585
@@ -169,11 +177,12 @@ Current Balance: $200.00
 Error: 1 is an invalid selection -  try again
 |********************************************|
 
-*************************************************
-Name: Matthew Fitzgerald
+******************************************************
+			Name: Matthew Fitzgerald
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
-|Balance Inquiry |$0.0                |Success           |
+|Balance Inquiry |$--                 |Success           |
 |Deposit         |$300.0              |Success           |
 |Deposit         |$-1.0               |Failed            |
 |Withdraw        |$50.0               |Success           |
@@ -181,59 +190,70 @@ Name: Matthew Fitzgerald
 |Withdraw        |$1000000.0          |Failed            |
 |Withdraw        |$1000000.0          |Failed            |
 |Withdraw        |$250.55             |Success           |
-|Close Account   |$0.0                |Failed            |
-|Balance Inquiry |$0.0                |Success           |
+|Close Account   |$--                 |Failed            |
+|Balance Inquiry |$--                 |Success           |
 |Delete          |$200.0              |Failed            |
-|Balance Inquiry |$0.0                |Success           |
+|Balance Inquiry |$--                 |Success           |
 |********************************************************|
 
-*************************************************
-Name: Danny Carlson
+******************************************************
+			Name: Danny Carlson
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
 |Withdraw        |$1234.56            |Success           |
-|Close Account   |$0.0                |Success           |
+|Close Account   |$--                 |Success           |
+|Balance Inquiry |$--                 |Failed            |
+|Withdraw        |$--                 |Failed            |
+|Deposit         |$--                 |Failed            |
+|Reopen Account  |$--                 |Success           |
 |********************************************************|
 
-*************************************************
-Name: Joe Smith
+******************************************************
+			Name: Joe Smith
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
 |********************************************************|
 
-*************************************************
-Name: Brown McDonald
+******************************************************
+			Name: Brown McDonald
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
 |********************************************************|
 
-*************************************************
-Name: Denise Jones
+******************************************************
+			Name: Denise Jones
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
 |********************************************************|
 
-*************************************************
-Name: Skywalker Luke
+******************************************************
+			Name: Skywalker Luke
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
-|New Account     |$0.0                |Success           |
+|New Account     |$--                 |Success           |
 |Deposit         |$6000.0             |Success           |
 |Withdraw        |$50.0               |Success           |
 |********************************************************|
 
-*************************************************
-Name: Smith TestMan2
+******************************************************
+			Name: Smith TestMan2
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
-|New Account     |$0.0                |Success           |
+|New Account     |$--                 |Success           |
 |********************************************************|
 
-*************************************************
-Name: Gage Finneas
+******************************************************
+			Name: Gage Finneas
 				Transactions
+
 |Transaction Type|Transaction Amount  |Transaction Status|
-|New Account     |$0.0                |Success           |
+|New Account     |$--                 |Success           |
 |Deposit         |$500.0              |Success           |
 |********************************************************|
 

@@ -6,7 +6,7 @@ public class Account {
 	private String accountType;
 	private double balance;
 	private ArrayList<Transaction> transactions;
-	private boolean isOpen;			//TRUE = OPEN		FALSE = CLOSED
+	private boolean isOpen; // TRUE = OPEN FALSE = CLOSED
 
 	// No-Arg Constructor
 	public Account() {
@@ -19,14 +19,14 @@ public class Account {
 	}
 
 	// Argument Constructor
-	public Account(int an, String at, double b, Depositor d,ArrayList<Transaction> newTrans,Boolean status) {
+	public Account(int an, String at, double b, Depositor d, ArrayList<Transaction> newTrans, Boolean status) {
 		accountNumber = an;
 		accountType = at;
 		balance = b;
 		depositor = d;
 		transactions = newTrans;
 		isOpen = status;
-		
+
 	}
 
 	// Setters
@@ -45,10 +45,19 @@ public class Account {
 	public void setBalance(Double b) {
 		balance = b;
 	}
+
 	public void setAccountStatus(boolean s) {
 		isOpen = s;
 	}
-	
+
+	public void closeAccount() {
+		isOpen = false;
+	}
+
+	public void openAccount() {
+		isOpen = true;
+	}
+
 	// Getters
 	public Depositor getDepositor() {
 		return depositor;
@@ -65,33 +74,31 @@ public class Account {
 	public double getBalance() {
 		return balance;
 	}
+
 	public int getTransactionSize() {
 		return transactions.size();
 	}
-	public ArrayList<Transaction> getTransactions(){
+
+	public ArrayList<Transaction> getTransactions() {
 		return transactions;
 	}
+
 	public boolean getAccountStatus() {
 		return isOpen;
 	}
+
 	/*
 	 * Methods
 	 */
 	public void makeDeposit(Double deposit) {
 		balance += deposit;
 	}
+
 	public void makeWithdrawl(Double with) {
 		balance = balance - with;
 
 	}
-	public boolean closeAccount() {
-		return true;
-	}
-	
-	public boolean openAccount() {
-		return true;
-	}
-	
+
 	public void addTransaction(Transaction t) {
 		transactions.add(t);
 	}
