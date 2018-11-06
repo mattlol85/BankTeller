@@ -24,6 +24,9 @@ printAcctInfo()
 printAcctInfoWithTransactionHistory()
 ... (other methods as deemed necessary
  */
+//TODO Add Account open/closed functionality
+//TODO
+//TODO
 public class BankTeller {
 	public static void main(String a[]) throws IOException {
 		char choice; // menu item selected
