@@ -1,8 +1,27 @@
 import java.util.ArrayList;
 
+
+
+/*
+ * 
+ * TODO totalAmountInSavingsAccts - sum total of balances in all Savings accounts
+ * TODO totalAmountInCheckingAccts - sum total of balances in all Checking accounts
+ * TODO totalAmountInCDAccts - total - sum total of balances in all CD accounts
+ * TODO totalAmountInAllAccts - total - sum total of balances in all accounts
+ * Add several static member variables and method:
+ * Make sure to provide appropriate methods so as to allow for the addition to,
+ *  subtraction from, and reading of, the current values each of these static variables.
+ * 
+ * 
+ */
 public class Bank {
 	
 	private  ArrayList<Account> accounts;
+	public static double totalAmountInSavingsAccts = 0.0;
+	public static double totalAmountInCheckingAccts = 0.0;
+	public static double totalAmountInCDAccts = 0.0;
+	public static double totalAmountInAllAccts = 0.0;
+
 
 	// No-Arg
 	public Bank() {
@@ -86,6 +105,7 @@ public class Bank {
 	 * False if account was not found
 	 */
 	public boolean deleteAcct(int acctToDelete) {
+
 		int index;
 		index = findAcct(acctToDelete,1);
 		if (index != -1) {
@@ -94,5 +114,18 @@ public class Bank {
 		} else {
 			return false;
 		}
+	}
+	/*
+	 * Adds together total of all accounts.
+	 */
+	public static double addAllAcctsTotal(double savings,double cd,double checking) {
+		
+		return 0.0;
+	}
+	//I need some help my guy
+	public static double getSavingsTotal(Account[] accounts) {
+	
+		
+		return 0;
 	}
 }

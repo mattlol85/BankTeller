@@ -28,6 +28,16 @@ public class Account {
 		isOpen = status;
 
 	}
+	//Copy Constructor
+	public Account (Account a) {
+		accountNumber = a.getAccountNumber();
+		accountType = a.getAccountType();
+		balance = a.getBalance();
+		depositor = a.getDepositor();
+		transactions = a.getTransactions();
+		isOpen = a.getAccountStatus();
+		
+	}
 
 	// Setters
 	public void setDepositor(Depositor d) {

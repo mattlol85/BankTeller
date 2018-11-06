@@ -4,8 +4,25 @@ import java.util.Scanner;
 
 /*
  * Name: Matthew Fitzgerald
- * BankAccounts v3.0
+ * BankAccounts v5.0
  * 
+ */
+
+/*
+ * Specifically, you should minimally do the following:
+1. The Bank class: do not overload either the toString(0 or the equals() method.
+Be sure to print the values of all of these static variables when you print the database of accounts.
+2. The Account class: overload both the toString() and the equals() methods.
+3. The Depositor class: overload both the toString() and the equals() methods.
+4. The Name class: overload both the toString() and the equals() methods.
+5. The Transaction class: overload the toString() method.
+Minimally, in addition to adding the static members, rewrite the following methods:
+printAccts()
+findAcct()
+findAcctSSN()
+printAcctInfo()
+printAcctInfoWithTransactionHistory()
+... (other methods as deemed necessary
  */
 public class BankTeller {
 	public static void main(String a[]) throws IOException {
@@ -79,7 +96,7 @@ public class BankTeller {
 				reopenAcct(bankOfAmerica, kybd);
 				break;
 			case 'm':
-				// printAllDataToConsole(bankOfAmerica);
+				printAllDataToConsole(bankOfAmerica);
 				break;
 			default:
 				outFile.println("|********************************************|");
@@ -145,34 +162,35 @@ public class BankTeller {
 		}
 	}
 
-	/*
-	 * private static void printAllDataToConsole(Bank bank) { ArrayList<Account>
-	 * accounts = bank.getAccounts(); ArrayList<Transaction> tempTrans; Account
-	 * tempAcc; Depositor tempDep; Name tempName; for (int i = 0; i <
-	 * accounts.size(); i++) { // Print Account data tempAcc = accounts.get(i);
-	 * tempDep = accounts.get(i).getDepositor(); tempName = tempDep.getName();
-	 * System.out.println(
-	 * "****************************************************************");
-	 * System.out.println("Name: " + tempName.getFirst() + " " +
-	 * tempName.getLast()); System.out.println("Account Number: " +
-	 * tempAcc.getAccountNumber()); System.out.println("SSN: " + tempDep.getSsn());
-	 * System.out.println("Account Type: " + tempAcc.getAccountType());
-	 * System.out.println("Balance: " + tempAcc.getBalance());
-	 * System.out.println("Account Status: " + tempAcc.getAccountStatus());
-	 * System.out.println(
-	 * "****************************************************************");
-	 * 
-	 * for (int j = 0; j < tempAcc.getTransactionSize(); j++) { tempTrans =
-	 * tempAcc.getTransactions(); // Print transaction data
-	 * System.out.println("Transaction Type: " +
-	 * tempTrans.get(j).getTransactionType());
-	 * System.out.println("Transaction Amount: " +
-	 * tempTrans.get(j).getTransactionAmount());
-	 * System.out.println("Transaction Status: " +
-	 * tempTrans.get(j).getTransactionSuccess()); System.out.println(); } }
-	 * 
-	 * }
-	 */
+	private static void printAllDataToConsole(Bank bank) {
+		ArrayList<Account> accounts = bank.getAccounts();
+		ArrayList<Transaction> tempTrans;
+		Depositor tempDep;
+		Name tempName;
+		for (int i = 0; i < accounts.size(); i++) { 
+			// Print Account data tempAcc = accounts.get(i);
+			tempDep = accounts.get(i).getDepositor();
+			tempName = tempDep.getName();
+			System.out.println("****************************************************************");
+			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
+			System.out.println("Account Number: " + accounts.get(i).getAccountNumber());
+			System.out.println("SSN: " + tempDep.getSsn());
+			System.out.println("Account Type: " + accounts.get(i).getAccountType());
+			System.out.println("Balance: " + accounts.get(i).getBalance());
+			System.out.println("Account Status: " + accounts.get(i).getAccountStatus());
+			System.out.println("****************************************************************");
+
+			for (int j = 0; j < accounts.get(i).getTransactionSize(); j++) {
+				tempTrans = accounts.get(i).getTransactions(); // Print transaction data
+				System.out.println("Transaction Type: " + tempTrans.get(j).getTransactionType());
+				System.out.println("Transaction Amount: " + tempTrans.get(j).getTransactionAmount());
+				System.out.println("Transaction Status: " + tempTrans.get(j).getTransactionSuccess());
+				System.out.println();
+			}
+		}
+
+	}
+
 	private static void reopenAcct(Bank bank, Scanner kybd) {
 		ArrayList<Account> accounts = bank.getAccounts();
 		System.out.println("Enter account number to reopen.");

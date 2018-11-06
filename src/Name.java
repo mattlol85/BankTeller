@@ -12,6 +12,11 @@ public class Name {
 		first = f;
 		last = l;
 	}
+	//Copy Constructor
+	public Name(Name n) {
+		first = n.getFirst();
+		last = n.getLast();
+	}
 	//Setters
 	public void setFirst(String f) {
 		first = f;

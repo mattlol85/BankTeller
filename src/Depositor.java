@@ -15,6 +15,11 @@ public class Depositor {
 		ssn = s;
 
 	}
+	//Copy Constructor
+	public Depositor(Depositor d) {
+		name = d.getName();
+		ssn = d.getSsn();
+	}
 
 	// Setters
 	public void setName(Name n) {
