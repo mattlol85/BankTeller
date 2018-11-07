@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 /*
  * 
- * TODO totalAmountInSavingsAccts - sum total of balances in all Savings accounts
- * TODO totalAmountInCheckingAccts - sum total of balances in all Checking accounts
- * TODO totalAmountInCDAccts - total - sum total of balances in all CD accounts
- * TODO totalAmountInAllAccts - total - sum total of balances in all accounts
+
  * Add several static member variables and method:
  * Make sure to provide appropriate methods so as to allow for the addition to,
  *  subtraction from, and reading of, the current values each of these static variables.
@@ -17,10 +14,10 @@ import java.util.ArrayList;
 public class Bank {
 	
 	private  ArrayList<Account> accounts;
-	public static double totalAmountInSavingsAccts = 0.0;
-	public static double totalAmountInCheckingAccts = 0.0;
-	public static double totalAmountInCDAccts = 0.0;
-	public static double totalAmountInAllAccts = 0.0;
+	private static double totalAmountInSavingsAccts;
+	private static double totalAmountInCheckingAccts;
+	private static double totalAmountInCDAccts;
+	private static double totalAmountInAllAccts;
 
 
 	// No-Arg
@@ -90,6 +87,7 @@ public class Bank {
 	 * to array successfully Return: False cannot add to array.
 	 */
 	public boolean openNewAcct(Account newAccount) {
+		
 		int index;
 		index = findAcct(newAccount.getAccountNumber(),1);
 		if (index == -1) {
@@ -127,5 +125,19 @@ public class Bank {
 	
 		
 		return 0;
+	}
+
+	/**
+	 * @return the totalAmountInAllAccts
+	 */
+	public static double getTotalAmountInAllAccts() {
+		return totalAmountInAllAccts;
+	}
+
+	/**
+	 * @param totalAmountInAllAccts the totalAmountInAllAccts to set
+	 */
+	public static void setTotalAmountInAllAccts(double totalAmountInAllAccts) {
+		Bank.totalAmountInAllAccts = totalAmountInAllAccts;
 	}
 }

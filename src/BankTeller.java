@@ -34,11 +34,11 @@ public class BankTeller {
 		ArrayList<Account> accounts = new ArrayList<>();
 
 		// open input test cases file
-		File testFile = new File("testcases.txt");
+		//File testFile = new File("testcases.txt");
 
 		// create Scanner object
-		Scanner kybd = new Scanner(testFile);
-		// Scanner kybd = new Scanner(System.in);
+		//Scanner kybd = new Scanner(testFile);
+		 Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -171,6 +171,8 @@ public class BankTeller {
 		Depositor tempDep;
 		Name tempName;
 		for (int i = 0; i < accounts.size(); i++) { 
+			/*
+			 * 
 			// Print Account data tempAcc = accounts.get(i);
 			tempDep = accounts.get(i).getDepositor();
 			tempName = tempDep.getName();
@@ -182,7 +184,8 @@ public class BankTeller {
 			System.out.println("Balance: " + accounts.get(i).getBalance());
 			System.out.println("Account Status: " + accounts.get(i).getAccountStatus());
 			System.out.println("****************************************************************");
-
+			*/
+			System.out.println(accounts.get(i).toString());
 			for (int j = 0; j < accounts.get(i).getTransactionSize(); j++) {
 				tempTrans = accounts.get(i).getTransactions(); // Print transaction data
 				System.out.println("Transaction Type: " + tempTrans.get(j).getTransactionType());

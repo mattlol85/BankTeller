@@ -51,4 +51,8 @@ public class Transaction {
 	public boolean getTransactionSuccess() {
 		return success;
 	}
+	public String toString() {
+		String str = String.format("%-10s%-10s", transactionType,transactionAmount);
+		return str;
+	}
 }

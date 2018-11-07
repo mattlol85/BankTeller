@@ -38,4 +38,9 @@ public class Depositor {
 	public String getSsn() {
 		return ssn;
 	}
+	public String toString() {
+		Name n = new Name(name);
+		String str = String.format("%-10s%-10s", n.toString(),ssn);
+		return str;
+	}
 }

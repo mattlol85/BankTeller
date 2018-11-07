@@ -1,5 +1,13 @@
 import java.util.ArrayList;
 
+
+
+/*
+ * totalAmountInSavingsAccts - sum total of balances in all Savings accounts
+   totalAmountInCheckingAccts - sum total of balances in all Checking accounts
+   totalAmountInCDAccts - total - sum total of balances in all CD accounts
+   totalAmountInAllAccts - total - sum total of balances in all accounts
+ */
 public class Account {
 	private Depositor depositor;
 	private int accountNumber;
@@ -7,6 +15,8 @@ public class Account {
 	private double balance;
 	private ArrayList<Transaction> transactions;
 	private boolean isOpen; // TRUE = OPEN FALSE = CLOSED
+
+
 
 	// No-Arg Constructor
 	public Account() {
@@ -112,5 +122,13 @@ public class Account {
 	public void addTransaction(Transaction t) {
 		transactions.add(t);
 	}
-
+	public  String toString() {
+		String str = String.format("%-10s%-10s%-10s%-10s%-10s",
+														depositor.toString(),
+														accountNumber,
+														balance,
+														accountType,
+														isOpen ? "Open" : "Closed");
+		return str;
+	}
 }
