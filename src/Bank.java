@@ -70,6 +70,10 @@ public class Bank {
 	}
 
 	public static double getTotalAmountInAllAccts() {
+		double total;
+		for(int i = 0; i < accounts.size():i++) {
+			
+		}
 		return totalAmountInAllAccts;
 	}
 

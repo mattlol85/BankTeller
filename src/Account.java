@@ -112,6 +112,7 @@ public class Account {
 	 */
 	public void makeDeposit(Double deposit) {
 		balance += deposit;
+		Bank.setTotalAmountInAllAccts(Bank.tota);
 		
 	}
 
