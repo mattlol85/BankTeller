@@ -34,11 +34,11 @@ public class BankTeller {
 		ArrayList<Account> accounts = new ArrayList<>();
 
 		// open input test cases file
-		//File testFile = new File("testcases.txt");
+		File testFile = new File("testcases.txt");
 
 		// create Scanner object
-		//Scanner kybd = new Scanner(testFile);
-		 Scanner kybd = new Scanner(System.in);
+		Scanner kybd = new Scanner(testFile);
+		// Scanner kybd = new Scanner(System.in);
 
 		// open the output file
 		PrintWriter outFile = new PrintWriter("myoutput.txt");
@@ -713,10 +713,6 @@ public class BankTeller {
 	 * accounts and balances
 	 */
 	public static void printAccts(Bank bankOfAmerica, PrintWriter outFile) {
-		ArrayList<Account> tempAccts = bankOfAmerica.getAccounts();
-		Account tempAcc = new Account();
-		Depositor tempDep = new Depositor();
-		Name tempName = new Name();
 		outFile.println();
 		outFile.println("\t\tDatabase of Bank Accounts");
 		outFile.printf("");
@@ -725,18 +721,8 @@ public class BankTeller {
 				"Account Type");
 		outFile.println("");
 
-		for (int index = 0; index < tempAccts.size(); index++) {
-			tempAcc = tempAccts.get(index);
-			tempDep = tempAcc.getDepositor();
-			tempName = tempDep.getName();
-
-			outFile.printf("|%-15d|", tempAcc.getAccountNumber());
-			outFile.printf("$%-14.2f|", tempAcc.getBalance());
-			outFile.printf("%-11s|", tempName.getFirst());
-			outFile.printf("%-12s|", tempName.getLast());
-			outFile.printf("%-18s|", tempDep.getSsn());
-			outFile.printf("%-13s|", tempAcc.getAccountType());
-			outFile.println("");
+		for (int index = 0; index < bankOfAmerica.getAccounts().size(); index++) {
+			outFile.println(bankOfAmerica.getAccounts().get(index).toString());
 		}
 		outFile.println("|*****************************************************************************************|");
 		outFile.println();

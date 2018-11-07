@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-
-
 /*
  * 
 
@@ -12,13 +10,12 @@ import java.util.ArrayList;
  * 
  */
 public class Bank {
-	
-	private  ArrayList<Account> accounts;
+
+	private ArrayList<Account> accounts;
 	private static double totalAmountInSavingsAccts;
 	private static double totalAmountInCheckingAccts;
 	private static double totalAmountInCDAccts;
 	private static double totalAmountInAllAccts;
-
 
 	// No-Arg
 	public Bank() {
@@ -36,6 +33,22 @@ public class Bank {
 		accounts = a;
 	}
 
+	public static void setTotalAmountInSavingsAccts(double a) {
+
+	}
+
+	public static void setTotalAmountInCheckingAccts() {
+
+	}
+
+	public static void setTotalAmountInCDAccts() {
+
+	}
+
+	public static void setTotalAmountInAllAccts() {
+
+	}
+
 	// Getters
 	public ArrayList<Account> getAccounts() {
 		return accounts;
@@ -44,20 +57,35 @@ public class Bank {
 	public int getActiveAccounts() {
 		return accounts.size();
 	}
+	public static double getTotalAmountInSavingsAccts(double a) {
+		return totalAmountInSavingsAccts;
+	}
+
+	public static double getTotalAmountInCheckingAccts() {
+		return totalAmountInCheckingAccts;
+	}
+
+	public static double getTotalAmountInCDAccts() {
+		return totalAmountInCDAccts;
+	}
+
+	public static double getTotalAmountInAllAccts() {
+		return totalAmountInAllAccts;
+	}
 
 	/*
 	 * METHODS:
 	 */
 
 	public int findAccountByNumber(int acctNumber) {
-		return findAcct(acctNumber,1);
+		return findAcct(acctNumber, 1);
 	}
 
 	/*
 	 * Input: SSN to lookup as string Return: Index of Account
 	 */
 	public int findAcctBySsn(String reqSsn) {
-		return findAcct(Integer.parseInt(reqSsn),2);
+		return findAcct(Integer.parseInt(reqSsn), 2);
 	}
 
 	/*
@@ -87,9 +115,9 @@ public class Bank {
 	 * to array successfully Return: False cannot add to array.
 	 */
 	public boolean openNewAcct(Account newAccount) {
-		
+
 		int index;
-		index = findAcct(newAccount.getAccountNumber(),1);
+		index = findAcct(newAccount.getAccountNumber(), 1);
 		if (index == -1) {
 			accounts.add(newAccount);
 			return true;
@@ -105,39 +133,12 @@ public class Bank {
 	public boolean deleteAcct(int acctToDelete) {
 
 		int index;
-		index = findAcct(acctToDelete,1);
+		index = findAcct(acctToDelete, 1);
 		if (index != -1) {
 			accounts.remove(index);
 			return true;
 		} else {
 			return false;
 		}
-	}
-	/*
-	 * Adds together total of all accounts.
-	 */
-	public static double addAllAcctsTotal(double savings,double cd,double checking) {
-		
-		return 0.0;
-	}
-	//I need some help my guy
-	public static double getSavingsTotal(Account[] accounts) {
-	
-		
-		return 0;
-	}
-
-	/**
-	 * @return the totalAmountInAllAccts
-	 */
-	public static double getTotalAmountInAllAccts() {
-		return totalAmountInAllAccts;
-	}
-
-	/**
-	 * @param totalAmountInAllAccts the totalAmountInAllAccts to set
-	 */
-	public static void setTotalAmountInAllAccts(double totalAmountInAllAccts) {
-		Bank.totalAmountInAllAccts = totalAmountInAllAccts;
 	}
 }

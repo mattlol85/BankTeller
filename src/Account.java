@@ -112,6 +112,7 @@ public class Account {
 	 */
 	public void makeDeposit(Double deposit) {
 		balance += deposit;
+		
 	}
 
 	public void makeWithdrawl(Double with) {
@@ -123,12 +124,18 @@ public class Account {
 		transactions.add(t);
 	}
 	public  String toString() {
-		String str = String.format("%-10s%-10s%-10s%-10s%-10s",
-														depositor.toString(),
-														accountNumber,
-														balance,
-														accountType,
-														isOpen ? "Open" : "Closed");
+		Name n = new Name(depositor.getName());
+		String str = String.format("%-16s|$%-15.2f|%-11s|%-12s|%-18s|%-13s|",accountNumber,balance,n.getFirst(),n.getLast(),depositor.getSsn(),accountType);
+		//outFile.printf("%-16s|%-15s|%-11s|%-12s|%-18s|%-13s|", "|Account Number", "Balance", "First", "Last", "SSN",
+		//		"Account Type");
+		//outFile
 		return str;
+	}
+	public boolean equals(Account a) {
+		if(accountNumber == a.getAccountNumber() && accountType == a.getAccountType()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
