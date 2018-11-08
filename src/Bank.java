@@ -25,28 +25,11 @@ public class Bank {
 	// Argument Constructor
 	public Bank(ArrayList<Account> a) {
 		accounts = a;
-
 	}
 
 	// Setters
 	public void setAccounts(ArrayList<Account> a) {
 		accounts = a;
-	}
-
-	public static void setTotalAmountInSavingsAccts(double a) {
-
-	}
-
-	public static void setTotalAmountInCheckingAccts() {
-
-	}
-
-	public static void setTotalAmountInCDAccts() {
-
-	}
-
-	public static void setTotalAmountInAllAccts() {
-
 	}
 
 	// Getters
@@ -57,25 +40,13 @@ public class Bank {
 	public int getActiveAccounts() {
 		return accounts.size();
 	}
-	public static double getTotalAmountInSavingsAccts(double a) {
-		return totalAmountInSavingsAccts;
-	}
+	public static double getTotalAmountInSavingsAccts() {return totalAmountInSavingsAccts;}
 
-	public static double getTotalAmountInCheckingAccts() {
-		return totalAmountInCheckingAccts;
-	}
+	public static double getTotalAmountInCheckingAccts() {return totalAmountInCheckingAccts;}
 
-	public static double getTotalAmountInCDAccts() {
-		return totalAmountInCDAccts;
-	}
+	public static double getTotalAmountInCDAccts() {return totalAmountInCDAccts;}
 
-	public static double getTotalAmountInAllAccts() {
-		double total;
-		for(int i = 0; i < accounts.size():i++) {
-			
-		}
-		return totalAmountInAllAccts;
-	}
+	public static double getTotalAmountInAllAccts() {return totalAmountInAllAccts;}
 
 	/*
 	 * METHODS:
@@ -89,7 +60,9 @@ public class Bank {
 	 * Input: SSN to lookup as string Return: Index of Account
 	 */
 	public int findAcctBySsn(String reqSsn) {
+		
 		return findAcct(Integer.parseInt(reqSsn), 2);
+		//FIXME Apparently needs to be a copy constructor 
 	}
 
 	/*
@@ -144,5 +117,19 @@ public class Bank {
 		} else {
 			return false;
 		}
+	}
+
+	public static void updateTotals(Double transactionAmount, String accountType) {
+		// TODO Auto-generated method stub
+		if(accountType == "Checking") {
+			totalAmountInCheckingAccts +=transactionAmount;
+		}
+		if(accountType == "Savings") {
+			totalAmountInSavingsAccts +=transactionAmount;
+		}
+		if(accountType == "CD") {
+			totalAmountInCDAccts +=transactionAmount;
+		}
+		totalAmountInAllAccts += transactionAmount;
 	}
 }
