@@ -170,21 +170,22 @@ public class BankTeller {
 		ArrayList<Transaction> tempTrans;
 		Depositor tempDep;
 		Name tempName;
-		for (int i = 0; i < accounts.size(); i++) { 
+		for (int i = 0; i < accounts.size(); i++) {
 			/*
 			 * 
-			// Print Account data tempAcc = accounts.get(i);
-			tempDep = accounts.get(i).getDepositor();
-			tempName = tempDep.getName();
-			System.out.println("****************************************************************");
-			System.out.println("Name: " + tempName.getFirst() + " " + tempName.getLast());
-			System.out.println("Account Number: " + accounts.get(i).getAccountNumber());
-			System.out.println("SSN: " + tempDep.getSsn());
-			System.out.println("Account Type: " + accounts.get(i).getAccountType());
-			System.out.println("Balance: " + accounts.get(i).getBalance());
-			System.out.println("Account Status: " + accounts.get(i).getAccountStatus());
-			System.out.println("****************************************************************");
-			*/
+			 * // Print Account data tempAcc = accounts.get(i); tempDep =
+			 * accounts.get(i).getDepositor(); tempName = tempDep.getName();
+			 * System.out.println(
+			 * "****************************************************************");
+			 * System.out.println("Name: " + tempName.getFirst() + " " +
+			 * tempName.getLast()); System.out.println("Account Number: " +
+			 * accounts.get(i).getAccountNumber()); System.out.println("SSN: " +
+			 * tempDep.getSsn()); System.out.println("Account Type: " +
+			 * accounts.get(i).getAccountType()); System.out.println("Balance: " +
+			 * accounts.get(i).getBalance()); System.out.println("Account Status: " +
+			 * accounts.get(i).getAccountStatus()); System.out.println(
+			 * "****************************************************************");
+			 */
 			System.out.println(accounts.get(i).toString());
 			for (int j = 0; j < accounts.get(i).getTransactionSize(); j++) {
 				tempTrans = accounts.get(i).getTransactions(); // Print transaction data
@@ -452,8 +453,6 @@ public class BankTeller {
 				outFile.println("|************************************|");
 				outFile.println("");
 				outFile.flush();
-				Transaction newTrans = new Transaction("Deposit", amountToDeposit, true);
-				accounts.get(index).addTransaction(newTrans);
 
 			}
 		}
@@ -661,23 +660,20 @@ public class BankTeller {
 		// Create Scanner
 		Scanner sc = new Scanner(dbFile);
 		String line;
-		ArrayList<Account> accounts = bank.getAccounts();
 
 		while (sc.hasNext()) {
 			line = sc.nextLine();
 			String tokens[] = line.split(" ");
-
 			Name tempName = new Name(tokens[2], tokens[3]);
-
 			Depositor tempDep = new Depositor(tempName, tokens[4]);
 			ArrayList<Transaction> transactions = new ArrayList<>();
-			Account tempAcc = new Account(Integer.parseInt(tokens[0]), tokens[5], Double.parseDouble(tokens[1]),
-					tempDep, transactions, true);
-
-			accounts.add(tempAcc);
+			Account tempAcc = new Account(Integer.parseInt(tokens[0]), tokens[5], 0.0, tempDep, transactions, true);
+			bank.getAccounts().add(tempAcc);
+			bank.getAccounts().get(bank.getAccounts().size()-1).makeDeposit(Double.parseDouble(tokens[1]));
 		}
-		// Close file.
+		//Close File
 		sc.close();
+
 	}
 
 	/*
@@ -720,6 +716,10 @@ public class BankTeller {
 		outFile.printf("%-16s|%-15s|%-11s|%-12s|%-18s|%-13s|", "|Account Number", "Balance", "First", "Last", "SSN",
 				"Account Type");
 		outFile.println("");
+		outFile.println("Total amount in all accounts: $" + Bank.getTotalAmountInAllAccts());
+		outFile.println("Total amount in Checking accounts: $" + Bank.getTotalAmountInCheckingAccts());
+		outFile.println("Total amount in Savings accounts: $" + Bank.getTotalAmountInSavingsAccts());
+		outFile.println("Total amount in CD accounts: $" + Bank.getTotalAmountInCDAccts());
 
 		for (int index = 0; index < bankOfAmerica.getAccounts().size(); index++) {
 			outFile.println(bankOfAmerica.getAccounts().get(index).toString());
@@ -823,13 +823,10 @@ public class BankTeller {
 				outFile.println();
 				outFile.println("Amount to Withdraw: $" + amountToWithdraw);
 				// DEPOSIT
-				accounts.get(index).setBalance(accounts.get(index).getBalance() - amountToWithdraw);
+				accounts.get(index).makeWithdrawl(amountToWithdraw);
 				outFile.printf("New Balance: $%.2f\n", accounts.get(index).getBalance());
 				outFile.println("|************************************|");
 				outFile.println("");
-				// TRANSACTION
-				Transaction withTransaction = new Transaction("Withdraw", amountToWithdraw, true);
-				accounts.get(index).addTransaction(withTransaction);
 			}
 		}
 

@@ -1,13 +1,5 @@
 import java.util.ArrayList;
 
-
-
-/*
- * totalAmountInSavingsAccts - sum total of balances in all Savings accounts
-   totalAmountInCheckingAccts - sum total of balances in all Checking accounts
-   totalAmountInCDAccts - total - sum total of balances in all CD accounts
-   totalAmountInAllAccts - total - sum total of balances in all accounts
- */
 public class Account {
 	private Depositor depositor;
 	private int accountNumber;
@@ -112,12 +104,17 @@ public class Account {
 	 */
 	public void makeDeposit(Double deposit) {
 		balance += deposit;
-		Bank.setTotalAmountInAllAccts(Bank.tota);
-		
+		Transaction depTransaction = new Transaction("Deposit", deposit, true);
+		addTransaction(depTransaction);
+		Bank.updateTotals(deposit, accountType);
 	}
 
 	public void makeWithdrawl(Double with) {
 		balance = balance - with;
+		Transaction withTransaction = new Transaction("Withdraw", with, true);
+		addTransaction(withTransaction);
+		Bank.updateTotals(-with, accountType);
+
 
 	}
 

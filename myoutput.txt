@@ -2,6 +2,10 @@
 		Database of Bank Accounts
 |*****************************************************************************************|
 |Account Number |Balance        |First      |Last        |SSN               |Account Type |
+Total amount in all accounts: $7437.429999999999
+Total amount in Checking accounts: $0.0
+Total amount in Savings accounts: $0.0
+Total amount in CD accounts: $0.0
 123456          |$200.55         |Matthew    |Fitzgerald  |135643465         |Savings      |
 567890          |$1234.56        |Danny      |Carlson     |134537653         |Savings      |
 987654          |$2.33           |Joe        |Smith       |111447777         |CD           |
@@ -182,6 +186,7 @@ Error: 1 is an invalid selection -  try again
 				Transactions
 
 |Transaction Type|Transaction Amount  |Transaction Status|
+|Deposit         |$200.55             |Success           |
 |Balance Inquiry |$--                 |Success           |
 |Deposit         |$300.0              |Success           |
 |Deposit         |$-1.0               |Failed            |
@@ -201,6 +206,7 @@ Error: 1 is an invalid selection -  try again
 				Transactions
 
 |Transaction Type|Transaction Amount  |Transaction Status|
+|Deposit         |$1234.56            |Success           |
 |Withdraw        |$1234.56            |Success           |
 |Close Account   |$--                 |Success           |
 |Balance Inquiry |$--                 |Failed            |
@@ -214,6 +220,7 @@ Error: 1 is an invalid selection -  try again
 				Transactions
 
 |Transaction Type|Transaction Amount  |Transaction Status|
+|Deposit         |$2.33               |Success           |
 |********************************************************|
 
 *********************************************************
@@ -221,6 +228,7 @@ Error: 1 is an invalid selection -  try again
 				Transactions
 
 |Transaction Type|Transaction Amount  |Transaction Status|
+|Deposit         |$5000.0             |Success           |
 |********************************************************|
 
 *********************************************************
@@ -228,6 +236,7 @@ Error: 1 is an invalid selection -  try again
 				Transactions
 
 |Transaction Type|Transaction Amount  |Transaction Status|
+|Deposit         |$999.99             |Success           |
 |********************************************************|
 
 *********************************************************
@@ -261,6 +270,10 @@ Error: 1 is an invalid selection -  try again
 		Database of Bank Accounts
 |*****************************************************************************************|
 |Account Number |Balance        |First      |Last        |SSN               |Account Type |
+Total amount in all accounts: $12652.32
+Total amount in Checking accounts: $0.0
+Total amount in Savings accounts: $5950.0
+Total amount in CD accounts: $500.0
 123456          |$200.00         |Matthew    |Fitzgerald  |135643465         |Savings      |
 567890          |$0.00           |Danny      |Carlson     |134537653         |Savings      |
 987654          |$2.33           |Joe        |Smith       |111447777         |CD           |

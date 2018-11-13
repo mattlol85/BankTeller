@@ -132,4 +132,9 @@ public class Bank {
 		}
 		totalAmountInAllAccts += transactionAmount;
 	}
+
+	public static void setTotalAmountInAllAccts(Double amount) {
+		// TODO Auto-generated method stub
+		totalAmountInAllAccts = amount += totalAmountInAllAccts;
+	}
 }
