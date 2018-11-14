@@ -712,14 +712,15 @@ public class BankTeller {
 		outFile.println();
 		outFile.println("\t\tDatabase of Bank Accounts");
 		outFile.printf("");
-		outFile.println("|*****************************************************************************************|");
-		outFile.printf("%-16s|%-15s|%-11s|%-12s|%-18s|%-13s|", "|Account Number", "Balance", "First", "Last", "SSN",
-				"Account Type");
-		outFile.println("");
 		outFile.println("Total amount in all accounts: $" + Bank.getTotalAmountInAllAccts());
 		outFile.println("Total amount in Checking accounts: $" + Bank.getTotalAmountInCheckingAccts());
 		outFile.println("Total amount in Savings accounts: $" + Bank.getTotalAmountInSavingsAccts());
 		outFile.println("Total amount in CD accounts: $" + Bank.getTotalAmountInCDAccts());
+		outFile.println();
+		outFile.println("|*****************************************************************************************|");
+		outFile.printf("%-16s|%-15s|%-11s|%-12s|%-18s|%-13s|", "|Account Number", "Balance", "First", "Last", "SSN",
+				"Account Type");
+		outFile.println("");
 
 		for (int index = 0; index < bankOfAmerica.getAccounts().size(); index++) {
 			outFile.println(bankOfAmerica.getAccounts().get(index).toString());
