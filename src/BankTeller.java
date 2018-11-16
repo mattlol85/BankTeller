@@ -710,8 +710,8 @@ public class BankTeller {
 	 */
 	public static void printAccts(Bank bankOfAmerica, PrintWriter outFile) {
 		outFile.println();
-		outFile.println("\t\tDatabase of Bank Accounts");
-		outFile.printf("");
+		outFile.println("\t\t\tDatabase of Bank Accounts");
+		outFile.println("");
 		outFile.println("Total amount in all accounts: $" + Bank.getTotalAmountInAllAccts());
 		outFile.println("Total amount in Checking accounts: $" + Bank.getTotalAmountInCheckingAccts());
 		outFile.println("Total amount in Savings accounts: $" + Bank.getTotalAmountInSavingsAccts());

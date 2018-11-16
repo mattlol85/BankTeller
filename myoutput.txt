@@ -1,11 +1,13 @@
 
-		Database of Bank Accounts
-|*****************************************************************************************|
-|Account Number |Balance        |First      |Last        |SSN               |Account Type |
+			Database of Bank Accounts
+
 Total amount in all accounts: $7437.429999999999
 Total amount in Checking accounts: $0.0
 Total amount in Savings accounts: $0.0
 Total amount in CD accounts: $0.0
+
+|*****************************************************************************************|
+|Account Number |Balance        |First      |Last        |SSN               |Account Type |
 123456          |$200.55         |Matthew    |Fitzgerald  |135643465         |Savings      |
 567890          |$1234.56        |Danny      |Carlson     |134537653         |Savings      |
 987654          |$2.33           |Joe        |Smith       |111447777         |CD           |
@@ -139,6 +141,14 @@ Account Type: CD
 
 |************************************|
 Transaction Requested: Deposit
+Account Number: 858585
+Old Balance: $0.00
+Amount to Deposit: $5482.43
+New Balance: $5482.43
+|************************************|
+
+|************************************|
+Transaction Requested: Deposit
 Account Number: 123123
 Old Balance: $0.00
 Amount to Deposit: $500.0
@@ -148,18 +158,18 @@ New Balance: $500.00
 |************************************|
 Transaction Requested: Deposit
 Account Number: 858585
-Old Balance: $0.00
+Old Balance: $5482.43
 Amount to Deposit: $6000.0
-New Balance: $6000.00
+New Balance: $11482.43
 |************************************|
 
 |************************************|
 Transaction Requested: Withdrawal
 Account Number: 858585
-Old Balance: $6000.00
+Old Balance: $11482.43
 
 Amount to Withdraw: $50.0
-New Balance: $5950.00
+New Balance: $11432.43
 |************************************|
 
 |**************************************************|
@@ -245,6 +255,7 @@ Error: 1 is an invalid selection -  try again
 
 |Transaction Type|Transaction Amount  |Transaction Status|
 |New Account     |$--                 |Success           |
+|Deposit         |$5482.43            |Success           |
 |Deposit         |$6000.0             |Success           |
 |Withdraw        |$50.0               |Success           |
 |********************************************************|
@@ -267,19 +278,21 @@ Error: 1 is an invalid selection -  try again
 |********************************************************|
 
 
-		Database of Bank Accounts
+			Database of Bank Accounts
+
+Total amount in all accounts: $18134.75
+Total amount in Checking accounts: $0.0
+Total amount in Savings accounts: $11432.43
+Total amount in CD accounts: $500.0
+
 |*****************************************************************************************|
 |Account Number |Balance        |First      |Last        |SSN               |Account Type |
-Total amount in all accounts: $12652.32
-Total amount in Checking accounts: $0.0
-Total amount in Savings accounts: $5950.0
-Total amount in CD accounts: $500.0
 123456          |$200.00         |Matthew    |Fitzgerald  |135643465         |Savings      |
 567890          |$0.00           |Danny      |Carlson     |134537653         |Savings      |
 987654          |$2.33           |Joe        |Smith       |111447777         |CD           |
 222222          |$5000.00        |Brown      |McDonald    |883567324         |Checking     |
 333333          |$999.99         |Denise     |Jones       |111223333         |Checking     |
-858585          |$5950.00        |Skywalker  |Luke        |101010101         |Savings      |
+858585          |$11432.43       |Skywalker  |Luke        |101010101         |Savings      |
 868686          |$0.00           |Smith      |TestMan2    |111112222         |Checking     |
 123123          |$500.00         |Gage       |Finneas     |333224444         |CD           |
 |*****************************************************************************************|
